@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="home.css" rel="stylesheet" type="text/css"/>
+<body style="background-image:url(../static/moroccan-flower.png);">
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>assignment3</title>
+    <script src="static/echarts.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Assignment4</h1>
+    <h1>1001778272</h1>
+    <h2>Hengchao Wang</h2>
+</div>
+<div class="container">
+
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'Depth'
+            },
+            tooltip: {},
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataZoom: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data: ['depth']
+            },
+            xAxis: {
+                data: {{ x|tojson }}
+            },
+            yAxis: {},
+            series: [{
+                name: 'number',
+                type: 'bar',
+                data: {{ y|tojson }}
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</div>
+</body>
+</html>

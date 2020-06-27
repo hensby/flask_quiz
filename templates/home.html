@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="home.css" rel="stylesheet" type="text/css"/>
+<body style="background-image:url(../static/moroccan-flower.png);">
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>assignment3</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Assignment4</h1>
+    <h1>1001778272</h1>
+    <h2>Hengchao Wang</h2>
+</div>
+
+<div class="container">
+    <form action="/home" method="POST">
+        <input name="point" value="depseg" style="display:none;">
+        <div class="input-group">
+            <input type="text" class="form-control" style="width:30%;" placeholder="input minimum depth" name="dep1">
+            <input type="text" class="form-control" style="width:30%;" placeholder="input maximum depth" name="dep2">
+            <input type="text" class="form-control" style="width:40%;" placeholder="input segment" name="seg">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">histogram</button>
+            </span>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <form action="/home" method="POST">
+        <input name="point" value="deppie" style="display:none;">
+        <div class="input-group">
+            <input type="text" class="form-control" style="width:30%;" placeholder="input minimum depth" name="dep1">
+            <input type="text" class="form-control" style="width:30%;" placeholder="input maximum depth" name="dep2">
+            <input type="text" class="form-control" style="width:40%;" placeholder="input segment" name="seg">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="submit"> pie chart</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <form action="/home" method="POST">
+        <input name="point" value="scatter" style="display:none;">
+        <div class="input-group">
+            <input type="text" class="form-control" style="width:50%;" placeholder="input minimum depth" name="dep1">
+            <input type="text" class="form-control" style="width:50%;" placeholder="input maximum depth" name="dep2">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">  scatter</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <form action="/home" method="POST">
+        <input name="point" value="line" style="display:none;">
+        <div class="input-group">
+            <input type="text" class="form-control" style="width:50%;" placeholder="input a segment of magnitude"
+                   name="seg">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">line chart</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    {% if k==0 %}  <h5>no record</h5>  {% endif %}
+    {% if k>0 %}
+        <h5>totally {{ k }} will show the first 100 rows</h5>
+        <h5>Time {{ time }}</h5>
+        <table class="table" border="1">
+            <tr>
+                <th>time</th>
+                <th>latitude</th>
+                <th>longitude</th>
+                <th>depth</th>
+                <th>mag</th>
+                <th>magType</th>
+                <th>nst</th>
+                <th>gap</th>
+                <th>dmin</th>
+                <th>rms</th>
+                <th>net</th>
+                <th>updated</th>
+                <th>place</th>
+                <th>type</th>
+                <th>horizontalError</th>
+                <th>depthError</th>
+                <th>magError</th>
+                <th>magNst</th>
+                <th>status</th>
+                <th>locationSource</th>
+                <th>magSource</th>
+            </tr>
+            {% for rel in result[:100] %}
+                <tr>
+{#                    <td>{{ rel[0] }}</td>#}
+                    <td>{{ rel[1] }}</td>
+                    <td>{{ rel[2] }}</td>
+                    <td>{{ rel[3] }}</td>
+                    <td>{{ rel[4] }}</td>
+                    <td>{{ rel[5] }}</td>
+                    <td>{{ rel[6] }}</td>
+                    <td>{{ rel[7] }}</td>
+                    <td>{{ rel[8] }}</td>
+                    <td>{{ rel[9] }}</td>
+                    <td>{{ rel[10] }}</td>
+                    <td>{{ rel[11] }}</td>
+                    <td>{{ rel[12] }}</td>
+                    <td>{{ rel[13] }}</td>
+                    <td>{{ rel[14] }}</td>
+                    <td>{{ rel[15] }}</td>
+                    <td>{{ rel[16] }}</td>
+                    <td>{{ rel[17] }}</td>
+                    <td>{{ rel[18] }}</td>
+                    <td>{{ rel[19] }}</td>
+                    <td>{{ rel[20] }}</td>
+                    <td>{{ rel[21] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="home.css" rel="stylesheet" type="text/css"/>
+<body style="background-image:url(../static/moroccan-flower.png);">
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>assignment3</title>
+    <script src="static/echarts.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Assignment4</h1>
+    <h1>1001778272</h1>
+    <h2>Hengchao Wang</h2>
+</div>
+<div class="container">
+
+    <div id="main1" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        {#var ser=[];#}
+        {#for(var i = 0;i<{{ len }};i++){#}
+        {#    ser.push({#}
+        {#        type:'pie',#}
+        {#        data: [{value:{{ y|tojson }}[i], name: {{x|tojson}}[i]}]#}
+        {##}
+        {##}
+        {#radius : '55%',#}
+        {#center: ['50%', '60%'],#}
+        {##}
+        {#    });#}
+        {#}#}
+            {#console.log(ser);#}
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main1'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: 'Depth',
+                    x: 'center'
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+
+                {#series : ser#}
+
+                series: [
+                    {
+                        name: 'depth',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [
+                            {#{value:{{ y|tojson }}, name:{{x|tojson}}},#}
+                            {value: {{ y|tojson }}[0], name: {{x|tojson}}[0]},
+                            {value: {{ y|tojson }}[1], name: {{x|tojson}}[1]},
+                            {value: {{ y|tojson }}[2], name: {{x|tojson}}[2]},
+                            {value: {{ y|tojson }}[3], name: {{x|tojson}}[3]},
+                            {value: {{ y|tojson }}[4], name: {{x|tojson}}[4]}
+                        ]
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+    </script>
+</div>
+</body>
+</html>
