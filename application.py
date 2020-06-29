@@ -14,22 +14,17 @@ app = Flask(__name__)
 def home_redirect():
     data, timediff = getData()
     if request.method == 'POST':
-        if request.form['point'] == 'depseg':
+        if request.form['point'] == 'bar':
 
             conn = sqlite3.connect('data/test.db')
             c = conn.cursor()
-            if request.form["dep1"] == "":
-                mindep = 0
+            mindep = 0
+            maxdep = 10000
+            country = request.form["country"]
+            if request.form['seg'] == '':
+                seg = 500
             else:
-                mindep = float(request.form["dep1"])
-            if request.form["dep2"] == "":
-                maxdep = 10000
-            else:
-                maxdep = float(request.form["dep2"])
-            if request.form["seg"] == "":
-                seg = 0
-            else:
-                seg = float(request.form["seg"])
+                seg = int(request.form['seg'])
             x = []
             y = []
             while mindep < maxdep:
@@ -38,7 +33,7 @@ def home_redirect():
                 else:
                     max = maxdep
                 x.append(str(mindep) + "-" + str(max))
-                c.execute("SELECT * FROM all_month WHERE depth>=? and depth<?", (mindep, max))
+                c.execute("SELECT * FROM all_month WHERE Country = ? and Elev>=? and Elev<?", (country, mindep, max))
                 y.append(len(c.fetchall()))
                 mindep += seg
             conn.close()
@@ -46,14 +41,14 @@ def home_redirect():
         elif request.form['point'] == 'scatter':
             conn = sqlite3.connect('data/test.db')
             c = conn.cursor()
-            mindep = float(request.form['dep1'])
-            maxdep = float(request.form['dep2'])
-            alldata = c.execute("SELECT * FROM all_month WHERE depth>=? and depth<?", (mindep, maxdep))
+            minLat = float(request.form['dep1'])
+            maxLat = float(request.form['dep2'])
+            alldata = c.execute("SELECT * FROM all_month WHERE Latitude>=? and Latitude<?", (minLat, maxLat))
             demadata = []
             for d in alldata:
                 small = []
-                small.append(d[3])
                 small.append(d[4])
+                small.append(d[6])
                 demadata.append(small)
             conn.close()
             return render_template('scatter.html', data=demadata)
@@ -61,9 +56,13 @@ def home_redirect():
         elif request.form['point'] == 'deppie':
             conn = sqlite3.connect('data/test.db')
             c = conn.cursor()
-            mindep = float(request.form["dep1"])
-            maxdep = float(request.form["dep2"])
-            seg = float(request.form["seg"])
+            mindep = -3000
+            maxdep = 6000
+            seg = 500
+            if request.form["country"] == '':
+                country = "Japan"
+            else:
+                country = request.form["country"]
             x = []
             y = []
             while mindep < maxdep:
@@ -72,7 +71,7 @@ def home_redirect():
                 else:
                     max = maxdep
                 x.append(str(mindep) + "-" + str(max))
-                c.execute("SELECT * FROM all_month WHERE depth>=? and depth<?", (mindep, max))
+                c.execute("SELECT * FROM all_month WHERE Country = ? and Elev>=? and Elev<?", (country, mindep, maxdep))
                 y.append(len(c.fetchall()))
                 mindep += seg
             conn.close()
