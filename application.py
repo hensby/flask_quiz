@@ -6,8 +6,7 @@ import time
 import numpy as np
 
 app = Flask(__name__)
-
-port = int(os.getenv("PORT", 5000))
+# port = int(os.getenv("PORT", 5000))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -117,4 +116,6 @@ def getData():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=port)
+    # application.run(host='0.0.0.0', port=port)
+    # application.debug = True
+    app.run()
